@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Android Cihaz Test PWA</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4f46e5">
+</head>
+<body>
+    <header>
+        <h1>Android Cihaz Test Aracı</h1>
+        <p>Pixel 7 (Android 14) Uyumlu PWA</p>
+    </header>
+
+    <main class="container">
+        <!-- 1. Ekran Renk Testi -->
+        <section class="card">
+            <h2>1. Ekran Renkleri Testi</h2>
+            <p>Ana renkleri tam ekrana yansıtarak ölü piksel ve renk doğruluğunu test edin.</p>
+            <div class="btn-grid">
+                <button class="test-btn" onclick="openColorTest('red')">Kırmızı</button>
+                <button class="test-btn" onclick="openColorTest('green')">Yeşil</button>
+                <button class="test-btn" onclick="openColorTest('blue')">Mavi</button>
+                <button class="test-btn" onclick="openColorTest('white')">Beyaz</button>
+                <button class="test-btn" onclick="openColorTest('black')">Siyah</button>
+            </div>
+        </section>
+
+        <!-- 2. Dokunmatik Testi -->
+        <section class="card">
+            <h2>2. Ekran Dokunmatiği Testi</h2>
+            <p>Ekrana çoklu parmakla dokunarak multi-touch özelliğini test edin.</p>
+            <div id="touch-pad" class="touch-area">
+                <span>Dokunmak / Sürüklemek için burayı kullanın</span>
+            </div>
+            <button class="test-btn secondary" onclick="resetTouchPad()">Temizle</button>
+        </section>
+
+        <!-- 3. Hoparlör Testi -->
+        <section class="card">
+            <h2>3. Hoparlör Testi</h2>
+            <p>Hoparlörün düzgün çalışıp çalışmadığını test etmek için 440Hz test sesi çalın.</p>
+            <button class="test-btn" onclick="playAudioTone()">Ses Çal (440 Hz)</button>
+        </section>
+
+        <!-- 4. Mikrofon Testi -->
+        <section class="card">
+            <h2>4. Mikrofon Testi</h2>
+            <p>Mikrofonu aktifleştirerek ses seviyesi aktivitesini gözlemleyin.</p>
+            <button class="test-btn" onclick="startMicTest()">Mikrofonu Başlat</button>
+            <div id="mic-status" class="status-text">Durum: Bekliyor</div>
+            <div class="meter-bar"><div id="mic-level" class="meter-fill"></div></div>
+        </section>
+
+        <!-- 5. Titreşim Testi -->
+        <section class="card">
+            <h2>5. Titreşim Motoru Testi</h2>
+            <p>Cihazın titreşim motorunun tepki süresini test edin.</p>
+            <div class="btn-grid">
+                <button class="test-btn" onclick="vibrateDevice(200)">Kısa Titreşim</button>
+                <button class="test-btn" onclick="vibrateDevice(1000)">Uzun Titreşim</button>
+                <button class="test-btn" onclick="vibratePattern()">Desenli Titreşim</button>
+            </div>
+        </section>
+
+        <!-- 6. İnternet Bağlantısı Testi -->
+        <section class="card">
+            <h2>6. İnternet Bağlantısı Testi</h2>
+            <p>Anlık ağ durumunu ve bağlantı türünü görüntüleyin.</p>
+            <div id="network-status" class="info-box">Bağlantı kontrol ediliyor...</div>
+        </section>
+
+        <!-- 7. Ekstra: Cihaz ve Pil Bilgisi -->
+        <section class="card">
+            <h2>7. Cihaz & Pil Bilgisi</h2>
+            <div id="device-info" class="info-box">Yükleniyor...</div>
+        </section>
+    </main>
+
+    <!-- Tam Ekran Renk Katmanı -->
+    <div id="color-overlay" class="fullscreen-overlay" onclick="closeColorTest()">
+        <span class="overlay-hint">Çıkmak için ekrana dokunun</span>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').catch(err => console.log('SW Hata:', err));
+            });
+        }
+    </script>
+</body>
+</html>
